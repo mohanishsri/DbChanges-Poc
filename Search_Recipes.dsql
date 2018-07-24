@@ -1,0 +1,36 @@
+﻿Alter PROC [dbo].[Search_Recipes] 
+@Specialty [VARCHAR](50),
+@RecipeParent [VARCHAR](50),
+@Recipe [VARCHAR](50)
+AS 		  
+BEGIN
+	if(@Specialty is not NULL and @RecipeParent is not NULL and @Recipe is not NULL)
+	Begin
+		SELECT ID as RecipeId, Specialty,Recipe_Parent, Recipe from dbo.Recipe_Master_Mohanish
+		Where Specialty like '%' + @Specialty + '%' and Recipe_Parent like '%' + @RecipeParent + '%' and Recipe like '%' + @Recipe + '%'		
+		order by RecipeId
+	End
+	else if(@Specialty is NULL and @RecipeParent is not NULL and @Recipe is not NULL)
+	Begin
+		SELECT ID as RecipeId, Specialty,Recipe_Parent, Recipe from dbo.Recipe_Master_Mohanish
+		Where Recipe_Parent like '%' + @RecipeParent + '%' and Recipe like '%' + @Recipe + '%'		
+		order by RecipeId
+	End
+	else if(@Specialty is NULL and @RecipeParent is NULL and @Recipe is not NULL)
+	Begin
+		SELECT ID as RecipeId, Specialty,Recipe_Parent, Recipe from dbo.Recipe_Master_Mohanish		
+		where Recipe like '%' + @Recipe + '%'		
+		order by RecipeId
+	End
+	Else
+	Begin	
+		SELECT ID as RecipeId, Specialty,Recipe_Parent, Recipe from dbo.Recipe_Master_Mohanish		
+		order by RecipeId
+	End	
+END 
+
+/*
+exec [dbo].[Search_Recipes] 'e', 'e' , 't'
+exec [dbo].[Search_Recipes] NULL, NULL , NULL
+
+*/

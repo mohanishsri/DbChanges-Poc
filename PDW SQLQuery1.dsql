@@ -1,0 +1,25 @@
+﻿select * from 
+[dbo].[Lookup_Codes_Mohanish]
+
+select * from 
+[dbo].[Recipe_Master_Mohanish]
+
+Select * from dbo.Recipe_Master_Diagnosis_Test
+
+select * from 
+[fact].[GIRFT_NCIP_RnD_BaseComponent]
+
+select * from 
+[dbo].[Recipe_Master]
+
+SELECT ID as RecipeId, Specialty,Recipe_Parent, Recipe from dbo.Recipe_Master_Mohanish
+where ROW_NUMBER() OVER(ORDER BY ID ASC) > 3
+
+delete from dbo.Recipe_Master_Mohanish where Recipe = 'r1'
+
+
+SELECT max(ID)+1 as colid from dbo.Recipe_Master_Mohanish
+
+SELECT *
+FROM Northwind.INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = N'Customers'
