@@ -1,0 +1,16 @@
+﻿Alter PROC [dbo].[Get_ColumnNameAsTable] 
+@tablename [VARCHAR](50) 
+AS 		  
+BEGIN
+
+Set @tablename = 'GIRFT_NCIP_RnD_BaseComponent'
+
+		Select id,colname from [dbo].[ColNameForTable]
+		where tablename = @tablename
+		order by tablename, colname
+
+END 
+
+/*
+exec [dbo].[Get_ColumnNameAsTable] 'GIRFT_NCIP_RnD_BaseComponent'
+*/

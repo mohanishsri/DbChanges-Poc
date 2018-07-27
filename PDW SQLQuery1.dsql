@@ -21,5 +21,15 @@ delete from dbo.Recipe_Master_Mohanish where Recipe = 'r1'
 SELECT max(ID)+1 as colid from dbo.Recipe_Master_Mohanish
 
 SELECT *
-FROM Northwind.INFORMATION_SCHEMA.COLUMNS
-WHERE TABLE_NAME = N'Customers'
+FROM DEV_SIP_STG1.INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = N'dbo.Recipe_Master_Mohanish'
+
+SELECT 
+        o.Name AS Table_Name, 
+        c.Name AS Field_Name       
+FROM sys.columns c 
+     INNER JOIN sys.objects o ON o.object_id = c.object_id
+     LEFT JOIN  sys.types t on t.user_type_id  = c.user_type_id   
+WHERE o.type = 'U'
+ and o.Name = 'GIRFT_NCIP_RnD_BaseComponent'
+ORDER BY o.Name, c.Name

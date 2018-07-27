@@ -1,0 +1,20 @@
+﻿Alter PROC [dbo].[Get_ColumnValue] 
+@tablename [VARCHAR](50),
+@ID int
+AS 		  
+BEGIN
+
+
+DECLARE @value varchar(30)  
+SET @value = 'DIAG_01_Derived'  
+DECLARE @sqlText nvarchar(1000); 
+
+SET @sqlText = N'SELECT ' + @value + ' FROM dbo.GIRFT_NCIP_RnD_BaseComponent'
+Exec (@sqlText)
+
+END 
+
+/*
+exec [dbo].[Get_ColumnValue] 'GIRFT_NCIP_RnD_BaseComponent', 5
+*/
+

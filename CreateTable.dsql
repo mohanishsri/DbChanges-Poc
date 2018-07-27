@@ -1,0 +1,23 @@
+CREATE TABLE [dbo].[ColNameForTable] (
+    [id] int, 
+    [tablename] varchar(50), 
+    [colname] varchar(30)     
+)
+
+insert into 
+[dbo].[ColNameForTable] (id,tablename,colname)
+SELECT 
+				ROW_NUMBER() OVER (ORDER BY (SELECT 1)) AS Id,
+				o.Name AS Table_Name, 
+				c.Name AS Field_Name       
+		FROM sys.columns c 
+			 INNER JOIN sys.objects o ON o.object_id = c.object_id
+			 LEFT JOIN  sys.types t on t.user_type_id  = c.user_type_id   
+		WHERE o.type = 'U'
+		 and o.Name = @tablename
+		ORDER BY o.Name, c.Name
+
+
+Select * from [dbo].[ColNameForTable]
+		where tablename = @tablename
+		order by tablename, colname
