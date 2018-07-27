@@ -1,0 +1,13 @@
+CREATE TABLE [dbo].[Recipe_Master_Main_Mohanish] (
+    [ID] int NULL, 
+    [Recipe_Key] varbinary(8000) NULL, 
+    [Specialty] varchar(50) COLLATE Latin1_General_100_CI_AS_KS_WS NULL, 
+    [Recipe_Parent] varchar(50) COLLATE Latin1_General_100_CI_AS_KS_WS NULL, 
+    [Recipe] varchar(50) COLLATE Latin1_General_100_CI_AS_KS_WS NULL, 
+    [Priority] int NULL, 
+    [PreLogicalOperator] varchar(50) COLLATE Latin1_General_100_CI_AS_KS_WS NULL, 
+    [Attribute] varchar(150) COLLATE Latin1_General_100_CI_AS_KS_WS NULL, 
+    [Condition] varchar(50) COLLATE Latin1_General_100_CI_AS_KS_WS NULL, 
+    [CodeGroup_Name] varchar(50) COLLATE Latin1_General_100_CI_AS_KS_WS NULL, 
+    [PostLogicalOperator] varchar(50) COLLATE Latin1_General_100_CI_AS_KS_WS NULL
+)

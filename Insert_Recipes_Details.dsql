@@ -1,0 +1,25 @@
+﻿Alter PROC [dbo].[Insert_Recipes_Details] 
+@recipeid int,
+@specialty [varchar](30),
+@recipe_parent [varchar](30),
+@recipe [varchar](30),
+@priorty int,
+@attribute [VARCHAR](50),
+@condition [VARCHAR](50),
+@prelogical [varchar](10),
+@codegroup [varchar](50),
+@postlogical [varchar](10)
+AS 		  
+BEGIN
+	INSERT INTO dbo.Recipe_Master_Main_Mohanish(ID,Specialty,Recipe_Parent,Recipe,Priority,PreLogicalOperator,Attribute,Condition,CodeGroup_Name,PostLogicalOperator)
+	VALUES (@recipeid,@specialty, @recipe_parent, @recipe, @priorty,@prelogical, @attribute, @condition, @codegroup, @postlogical)
+END 
+
+/*
+exec [dbo].[Search_Recipes] 'e', 'e' , 't'
+exec [dbo].[Search_Recipes] NULL, NULL , NULL
+Select * from dbo.Recipe_Master_Mohanish
+Delete from dbo.Recipe_Master_Mohanish where Recipe_Key is NULL
+Select * from dbo.Recipe_Master_Main_Mohanish
+
+*/
