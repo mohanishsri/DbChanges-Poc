@@ -1,13 +1,52 @@
 ﻿select * from 
 [dbo].[Lookup_Codes_Mohanish]
 
+ALTER TABLE [dbo].[Lookup_Codes_Mohanish] ALTER COLUMN Attribute_Name VARCHAR (30) ;
+ALTER TABLE [dbo].[Lookup_Codes_Mohanish] ALTER COLUMN Attribute_Alias VARCHAR (30) ;
+ALTER TABLE [dbo].[Lookup_Codes_Mohanish] ALTER COLUMN Value VARCHAR (30) ;
+
+Select AGEGROUP_Derived, DIAG_01_Derived , DIAG_02_Derived From dbo.GIRFT_NCIP_RnD_BaseComponent Where 
+(Left(DIAG_01_Derived,4) in (Select Value from [dbo].[Lookup_Codes_Mohanish] where Attribute_Alias = 'Tonsilitis3' ) ) 
+
+
+select * from 
+[dbo].[GIRFT_NCIP_RnD_BaseComponent]
+
+
+insert into [dbo].[Lookup_Codes_Mohanish](Attribute_Name, Attribute_Alias, Value)
+Select 'DIAG_01_Derived', 'Tonsilitis3', 'R072'
+Union all
+Select 'DIAG_01_Derived', 'Tonsilitis3', 'A411'
+Union all
+Select 'DIAG_02_Derived', 'Tonsilitis4', 'I209'
+Union all
+Select 'DIAG_02_Derived', 'Tonsilitis4', 'E119'
+Union all
+Select 'DIAG_03_Derived', 'Tonsilitis5', 'I48X'
+Union all
+Select 'DIAG_03_Derived', 'Tonsilitis5', 'I10X'
+Union all
+Select 'DIAG_04_Derived', 'Tonsilitis6', 'E039'
+Union all
+Select 'DIAG_04_Derived', 'Tonsilitis6', 'I10X'
+Union all
+Select 'DIAG_05_Derived', 'Tonsilitis7', 'I259'
+Union all
+Select 'DIAG_05_Derived', 'Tonsilitis7', 'G20X'
+Union all
+Select 'AGEGROUP_Derived', 'Tonsilitis8', 'GERIATRIC'
+Union all
+Select 'AGEGROUP_Derived', 'Tonsilitis8', 'ADULT'
+
+
+
 select * from 
 [dbo].[Recipe_Master_Mohanish]
 
 Select * from dbo.Recipe_Master_Diagnosis_Test
 
 select * from 
-[fact].[GIRFT_NCIP_RnD_BaseComponent]
+[dbo].[GIRFT_NCIP_RnD_BaseComponent] where Diag_01_Derived = 'Z092'
 
 select * from 
 [dbo].[Recipe_Master]
@@ -15,8 +54,13 @@ select * from
 SELECT ID as RecipeId, Specialty,Recipe_Parent, Recipe from dbo.Recipe_Master_Mohanish
 where ROW_NUMBER() OVER(ORDER BY ID ASC) > 3
 
-delete from dbo.Recipe_Master_Mohanish where Recipe = 'r1'
+delete from dbo.Recipe_Master_Main_Mohanish
 
+Select * from dbo.Recipe_Master_Mohanish
+Select * from dbo.Recipe_Master_Main_Mohanish
+
+Alter table dbo.Recipe_Master_Main_Mohanish
+Add LogicalOperator varchar(10)
 
 SELECT max(ID)+1 as colid from dbo.Recipe_Master_Mohanish
 
@@ -33,3 +77,15 @@ FROM sys.columns c
 WHERE o.type = 'U'
  and o.Name = 'GIRFT_NCIP_RnD_BaseComponent'
 ORDER BY o.Name, c.Name
+
+Select AGEGROUP_Derived, DIAG_01_Derived , DIAG_02_Derived , DIAG_03_Derived From dbo.GIRFT_NCIP_RnD_BaseComponent 
+Where (Left(DIAG_01_Derived,4) in (Select Value from [dbo].[Lookup_Codes_Mohanish] where Attribute_Alias = 'Tonsilitis3' ) ) 
+
+Select * from dbo.GIRFT_NCIP_RnD_BaseComponent
+Delete from dbo.Recipe_Query_Mohanish
+Select * from dbo.Recipe_Query_Mohanish
+Select AGEGROUP_Derived, DIAG_01_Derived  From dbo.GIRFT_NCIP_RnD_BaseComponent Where (Left(DIAG_01_Derived,4) in (Select Value from [dbo].[Lookup_Codes_Mohanish] where Attribute_Alias = 'Tonsilitis3' ) ) 
+Select AGEGROUP_Derived, DIAG_01_Derived  From dbo.GIRFT_NCIP_RnD_BaseComponent Where (Left(DIAG_01_Derived,4) in (Select Value from [dbo].[Lookup_Codes_Mohanish] where Attribute_Alias = 'Tonsilitis3' ) ) 
+
+
+Select DIAG_03_Derived, DIAG_02_Derived , DIAG_01_Derived , DIAG_04_Derived  From dbo.GIRFT_NCIP_RnD_BaseComponent Where (Left(DIAG_01_Derived,4) in (Select Value from [dbo].[Lookup_Codes_Mohanish] where Attribute_Alias = 'Tonsilitis3' ) )OR (Left(DIAG_02_Derived,4) in (Select Value from [dbo].[Lookup_Codes_Mohanish] where Attribute_Alias = 'Tonsilitis3'))

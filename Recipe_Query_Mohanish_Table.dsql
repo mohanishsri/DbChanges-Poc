@@ -1,0 +1,4 @@
+﻿CREATE TABLE [dbo].[Recipe_Query_Mohanish] (
+    [ID] int NULL, 
+    [Query] varchar(max)
+)

@@ -1,0 +1,16 @@
+﻿Alter PROC [dbo].[GetDisplayResults] 
+AS 		  
+BEGIN
+Declare @query varchar(max)
+	--set @query = 'select * from dbo.Recipe_Query_Mohanish'
+	 Set @query = (Select top 1 Query from dbo.Recipe_Query_Mohanish)
+	 EXECUTE (@query)  
+
+	 Delete from dbo.Recipe_Query_Mohanish
+END 
+
+/*
+exec [dbo].[GetDisplayResults] 
+exec [dbo].[Search_Recipes] NULL, NULL , NULL
+
+*/

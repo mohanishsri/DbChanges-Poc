@@ -1,0 +1,17 @@
+﻿Alter PROC [dbo].[GetColumnValues] 
+@colname [VARCHAR](30)
+AS 		  
+BEGIN
+	 Declare @query varchar(max)	
+	 Set @query = 'Select ROW_NUMBER() OVER (Order by ID) AS id, '+ @colname +' as itemName from [dbo].[GIRFT_NCIP_RnD_BaseComponent]
+					where ' + @colname + ' is not NULL and ' + @colname + '!='''''
+	
+	 EXECUTE (@query)  	 
+END 
+
+/*
+unit test:
+exec [dbo].[GetColumnValues] @colname = 'Diag_01_Derived'
+exec [dbo].[GetColumnValues] @colname = 'OPERTN_01_Derived'
+*/
+
