@@ -1,20 +1,13 @@
 ﻿Alter PROC [dbo].[Get_ColumnValue] 
-@tablename [VARCHAR](50),
-@ID int
+@colname [VARCHAR](50)
 AS 		  
 BEGIN
+Select distinct Attribute_Alias from  dbo.Lookup_Codes_Mohanish where Attribute_Name = @colname
 
-
-DECLARE @value varchar(30)  
-SET @value = 'DIAG_01_Derived'  
-DECLARE @sqlText nvarchar(1000); 
-
-SET @sqlText = N'SELECT ' + @value + ' FROM dbo.GIRFT_NCIP_RnD_BaseComponent'
-Exec (@sqlText)
 
 END 
 
 /*
-exec [dbo].[Get_ColumnValue] 'GIRFT_NCIP_RnD_BaseComponent', 5
+exec [dbo].[Get_ColumnValue] 'DIAG_01_Derived'
 */
 
