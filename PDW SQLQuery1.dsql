@@ -12,7 +12,8 @@ Select AGEGROUP_Derived, DIAG_01_Derived , DIAG_02_Derived From dbo.GIRFT_NCIP_R
 select * from 
 [dbo].[GIRFT_NCIP_RnD_BaseComponent]
 
-
+select * from  [dbo].[Lookup_Codes_Mohanish]
+ 
 insert into [dbo].[Lookup_Codes_Mohanish](Attribute_Name, Attribute_Alias, Value)
 Select 'DIAG_01_Derived', 'Tonsilitis3', 'R072'
 Union all
@@ -89,3 +90,5 @@ Select AGEGROUP_Derived, DIAG_01_Derived  From dbo.GIRFT_NCIP_RnD_BaseComponent 
 
 
 Select DIAG_03_Derived, DIAG_02_Derived , DIAG_01_Derived , DIAG_04_Derived  From dbo.GIRFT_NCIP_RnD_BaseComponent Where (Left(DIAG_01_Derived,4) in (Select Value from [dbo].[Lookup_Codes_Mohanish] where Attribute_Alias = 'Tonsilitis3' ) )OR (Left(DIAG_02_Derived,4) in (Select Value from [dbo].[Lookup_Codes_Mohanish] where Attribute_Alias = 'Tonsilitis3'))
+
+ SELECT * FROM dbo.Split('1,2,3',',')

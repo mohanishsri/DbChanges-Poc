@@ -1,0 +1,38 @@
+﻿Alter PROC [dbo].[SaveAttrbute] 
+@colname [VARCHAR](30),
+@attributealias [varchar](30),
+@selectedvalue [VARCHAR](100)
+AS 		  
+BEGIN		
+		DECLARE @pos INT
+		DECLARE @len INT
+		DECLARE @value varchar(8000)
+
+		--SET @list = 'A101,A203,B12341,C124,'
+
+		set @pos = 0
+		set @len = 0
+
+		WHILE CHARINDEX(',', @selectedvalue, @pos+1)>0
+		BEGIN
+			set @len = CHARINDEX(',', @selectedvalue, @pos+1) - @pos
+			set @value = SUBSTRING(@selectedvalue, @pos, @len)			
+
+			If Not Exists(Select 1 from [dbo].[Lookup_Codes_Mohanish] where Attribute_Name =  @colname and Attribute_Alias = @attributealias and Value = @value)
+			BEGIN			
+				Insert into [dbo].[Lookup_Codes_Mohanish](Attribute_Name, Attribute_Alias, Value)
+				Select @colname, @attributealias, @value
+			END
+    
+			--DO YOUR MAGIC HERE
+
+			set @pos = CHARINDEX(',', @selectedvalue, @pos+@len) +1
+		END 
+END 
+
+/*
+unit test:
+exec [dbo].[SaveAttrbute] @colname = 'Diag_01_Derived', @attributealias='Tonsilitis9', @selectedvalue = 'A101, A102,'
+exec [dbo].[SaveAttrbute] @colname = 'OPERTN_01_Derived'
+*/
+
