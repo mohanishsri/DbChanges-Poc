@@ -3,6 +3,9 @@
 AS 		  
 BEGIN
 	 Declare @query varchar(max)	
+	-- Declare @ColNamePass varchar(30)
+	-- Set @ColNamePass = (Select colname from [dbo].[ColNameForTable] where id = convert(int,@colname))
+
 	 Set @query = 'Select ROW_NUMBER() OVER (Order by ID) AS id, '+ @colname +' as itemName from [dbo].[GIRFT_NCIP_RnD_BaseComponent]
 					where ' + @colname + ' is not NULL and ' + @colname + '!='''''
 	
@@ -11,6 +14,7 @@ END
 
 /*
 unit test:
+exec [dbo].[GetColumnValues] @colname = '8'
 exec [dbo].[GetColumnValues] @colname = 'Diag_01_Derived'
 exec [dbo].[GetColumnValues] @colname = 'OPERTN_01_Derived'
 */

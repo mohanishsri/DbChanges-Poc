@@ -2,12 +2,16 @@
 @colname [VARCHAR](50)
 AS 		  
 BEGIN
+--Declare @ColNamePass varchar(30)
+--set @ColNamePass = (Select colname from [dbo].[ColNameForTable] where id = convert(int,@colname))
+
 Select distinct Attribute_Alias from  dbo.Lookup_Codes_Mohanish where Attribute_Name = @colname
 
 
 END 
 
 /*
-exec [dbo].[Get_ColumnValue] 'DIAG_01_Derived'
+exec [dbo].[Get_ColumnValue] 'Diag_01_Derived'
+exec [dbo].[Get_ColumnValue] '9'
 */
 

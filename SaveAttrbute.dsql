@@ -7,7 +7,8 @@ BEGIN
 		DECLARE @pos INT
 		DECLARE @len INT
 		DECLARE @value varchar(8000)
-
+		--Declare @ColNamePass varchar(30)
+		--Set @ColNamePass = (Select colname from [dbo].[ColNameForTable] where id = convert(int,@colname))
 		--SET @list = 'A101,A203,B12341,C124,'
 
 		set @pos = 0

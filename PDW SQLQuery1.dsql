@@ -87,10 +87,18 @@ Select AGEGROUP_Derived, DIAG_01_Derived  From dbo.GIRFT_NCIP_RnD_BaseComponent 
 Select AGEGROUP_Derived, DIAG_01_Derived  From dbo.GIRFT_NCIP_RnD_BaseComponent Where (Left(DIAG_01_Derived,4) in (Select Value from [dbo].[Lookup_Codes_Mohanish] where Attribute_Alias = 'Tonsilitis3' ) ) 
 
 
+Select AGEGROUP_Derived, DIAG_01_Derived  From dbo.GIRFT_NCIP_RnD_BaseComponent Where (Left(DIAG_01_Derived,4) in (Select Value from [dbo].[Lookup_Codes_Mohanish] where Attribute_Alias = 'test11' ) )OR (Left(DIAG_02_Derived,4) in (Select Value from [dbo].[Lookup_Codes_Mohanish] where Attribute_Alias = 'Test3'))
 Select DIAG_03_Derived, DIAG_02_Derived , DIAG_01_Derived , DIAG_04_Derived  From dbo.GIRFT_NCIP_RnD_BaseComponent Where (Left(DIAG_01_Derived,4) in (Select Value from [dbo].[Lookup_Codes_Mohanish] where Attribute_Alias = 'Tonsilitis3' ) )OR (Left(DIAG_02_Derived,4) in (Select Value from [dbo].[Lookup_Codes_Mohanish] where Attribute_Alias = 'Tonsilitis3'))
 
  SELECT * FROM dbo.Split('1,2,3',',')
 
+ Select * from dbo.Recipe_Master_Main_Mohanish
+
  Select DIAG_01_Derived, DIAG_02_Derived , DIAG_03_Derived  From dbo.GIRFT_NCIP_RnD_BaseComponent Where (Left(DIAG_01_Derived,4) in (Select Value from [dbo].[Lookup_Codes_Mohanish] where Attribute_Alias = 'Tonsilitis3' ) )OR (Left(DIAG_02_Derived,4) in (Select Value from [dbo].[Lookup_Codes_Mohanish] where Attribute_Alias = 'Tonsilitis4'))
 
  Select DIAG_04_Derived, DIAG_01_Derived , DIAG_02_Derived , DIAG_03_Derived  From dbo.GIRFT_NCIP_RnD_BaseComponent Where (Left(DIAG_01_Derived,4) in (Select Value from [dbo].[Lookup_Codes_Mohanish] where Attribute_Alias = 's1' ) ) 
+
+ Select  From dbo.GIRFT_NCIP_RnD_BaseComponent Where (Left(DIAG_01_Derived,4) in (Select Value from [dbo].[Lookup_Codes_Mohanish] where Attribute_Alias = 'test11' ) ) 
+
+
+ Select AGEGROUP_Derived, DIAG_01_Derived  From dbo.GIRFT_NCIP_RnD_BaseComponent Where (Left(DIAG_02_Derived,4) in (Select Value from [dbo].[Lookup_Codes_Mohanish] where Attribute_Alias = 'Tonsilitis4' ) )OR (Left(DIAG_01_Derived,4) in (Select Value from [dbo].[Lookup_Codes_Mohanish] where Attribute_Alias = 'test11'))
