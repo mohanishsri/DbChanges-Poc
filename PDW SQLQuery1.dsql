@@ -103,3 +103,144 @@ Select DIAG_03_Derived, DIAG_02_Derived , DIAG_01_Derived , DIAG_04_Derived  Fro
 
 
  Select AGEGROUP_Derived, DIAG_01_Derived  From dbo.GIRFT_NCIP_RnD_BaseComponent Where (Left(DIAG_02_Derived,4) in (Select Value from [dbo].[Lookup_Codes_Mohanish] where Attribute_Alias = 'Tonsilitis4' ) )OR (Left(DIAG_01_Derived,4) in (Select Value from [dbo].[Lookup_Codes_Mohanish] where Attribute_Alias = 'test11'))
+
+ Select AGEGROUP_Derived From dbo.GIRFT_NCIP_RnD_BaseComponent Where (Left(AGEGROUP_Derived,4) in (Select Value from [dbo].[Lookup_Codes_Mohanish] where Attribute_Alias = 'Tonsilitis8' ) ) 
+
+ Select AGEGROUP_Derived, DIAG_01_Derived  From dbo.GIRFT_NCIP_RnD_BaseComponent Where (Left(DIAG_02_Derived,4) in (Select Value from [dbo].[Lookup_Codes_Mohanish] where Attribute_Alias = 'T_Diag_2_2' ) )OR (Left(DIAG_01_Derived,4) in (Select Value from [dbo].[Lookup_Codes_Mohanish] where Attribute_Alias = 'test11'))
+
+ Select AGEGROUP_Derived, DIAG_01_Derived  From dbo.GIRFT_NCIP_RnD_BaseComponent Where (Left(DIAG_01_Derived,4) in (Select Value from [dbo].[Lookup_Codes_Mohanish] where Attribute_Alias = 's1' ) ) 
+
+
+
+ Select Epikey From dbo.GIRFT_NCIP_RnD_BaseComponent 
+ Where 
+
+( 
+ (
+ Left(DIAG_02_Derived,4) in (Select Value from [dbo].[Lookup_Codes_Mohanish] where Attribute_Alias = 'Ton2')
+ )
+ OR
+ (Left(DIAG_02_Derived,4) in (Select Value from [dbo].[Lookup_Codes_Mohanish] where Attribute_Alias = 'Ton3')
+ )
+ )
+ 
+ SELECT TOP 10 * FROM [UAT_SIP_HESMART].[dim].[GIRFTDeepDimension_Diagnosis]
+
+ SELECT COUNT_BIG(1) FROM [UAT_SIP_HESMART].[dim].[GIRFTDeepDimension_Diagnosis]
+ CREATE TABLE [DEV_SIP_STG1].[dbo].[S_HESMMES_APC_GIRFT_Specialty_ENT_San]
+ WITH (DISTRIBUTION = HASH(EPIKEY))
+ AS
+ SELECT * FROM [DEV_SIP_STG1].[dbo].[S_HESMMES_APC_GIRFT_Specialty_ENT]
+ INNER JOIN
+
+
+/*
+
+/* 1. START : Metadata content tables */
+
+SELECT	 
+		* 
+FROM	[DEV_SIP_STG1].[dbo].[Specialty_bucket]
+ 
+SELECT	 
+		* 
+FROM	[DEV_SIP_STG1].[dbo].[Recipe_Lookup]
+ 
+SELECT	 
+		* 
+FROM	[DEV_SIP_STG1].[dbo].[Recipe_Master]
+
+/* 1. END : Metadata content tables */
+
+ 
+
+/* 2. START : Source table to generate the Specialty bucket table */
+
+SELECT	TOP 10 
+		* 
+FROM	[DEV_SIP_STG1].[dbo].[GIRFT_NCIP_RnD_BaseComponent]
+
+/* 2. END : Source table to generate the Specialty bucket table */
+ 
+
+
+/* 3. START : Specialty Bucket table */
+
+SELECT	TOP 10 
+		* 
+FROM	[DEV_SIP_STG1].[dbo].[S_HESMMES_APC_GIRFT_TEMP_Specialty_ent]
+
+/* 3. END : Specialty Bucket table */
+
+
+
+/* 4. START : Recipe parents within a Specialty Bucket */
+
+SELECT	TOP 10 
+		* 
+FROM	[DEV_SIP_STG1].[dbo].[Temp_ENT_ENT_Condition]
+
+SELECT	TOP 10 
+		* 
+FROM	[DEV_SIP_STG1].[dbo].[Temp_ENT_CancerMSR]
+
+SELECT	TOP 10 
+		* 
+FROM	[DEV_SIP_STG1].[dbo].[Temp_ENT_PaedProcs]
+
+/* 4. END : Recipe parents within a Specialty Bucket */
+
+
+ 
+/* 5. START : BDS table for the Specialty Bucket */
+
+SELECT	TOP 10 
+		* 
+FROM	[DEV_SIP_STG1].[dbo].[S_HESMMES_APC_GIRFT_Specialty_ent]
+
+/* 5. END : BDS table for the Specialty Bucket */
+
+
+
+/* 6. START : Validate the generated table with the UAT table */
+
+SELECT	
+		 *
+FROM
+(
+SELECT	 --TOP 100
+		 a.Epikey AS UAT_EPIKEY
+		,b.Epikey AS EPIKEY
+		,a.ENT_Condition AS UAT_ENT_Condition
+		,b.ENT_Condition AS ENT_Condition
+		,CASE WHEN a.ENT_Condition = b.ENT_Condition THEN 1 ELSE 0 END AS ENT_Condition_Flag
+		,a.ENT_CancerMSR AS UAT_ENT_CancerMSR
+		,b.CancerMSR AS ENT_CancerMSR
+		,CASE WHEN a.ENT_CancerMSR = b.CancerMSR THEN 1 ELSE 0 END AS ENT_CancerMSR_Flag
+		,a.ENT_PaedProcs AS UAT_ENT_PaedProcs
+		,b.PaedProcs AS ENT_PaedProcs
+		,CASE WHEN a.ENT_PaedProcs = b.PaedProcs THEN 1 ELSE 0 END AS ENT_PaedProcs_Flag
+FROM	[UAT_SIP_HESMART].[fact].[GIRFT_ENT_Episode_BRIDGE] AS a
+JOIN	[DEV_SIP_STG1].[dbo].[S_HESMMES_APC_GIRFT_Specialty_ent] AS b ON a.Epikey = b.Epikey
+) a
+WHERE	
+		(
+		ENT_Condition_Flag = 0
+		OR
+		ENT_CancerMSR_Flag = 0
+		OR
+		ENT_PaedProcs_Flag = 0
+		)
+
+/* 6. END : Validate the generated table with the UAT table */
+
+*/
+
+SELECT * FROM  [dbo].[Recipe_Master_execlData] 
+SELECT * FROM [DEV_SIP_STG1].[dbo].[Recipe_intrem]
+
+SELECT ID as RecipeId, Specialty,Recipe_Parent, Recipe, Priority from dbo.Recipe_Master_Mohanish order by RecipeId
+
+exec GetColumnValues 'DIAG_02_Derived'
+
+Select * from [dbo].[GIRFT_NCIP_RnD_BaseComponent]

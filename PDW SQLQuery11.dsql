@@ -1,0 +1,11 @@
+﻿Select AGEGROUP_Derived, DIAG_01_Derived , DIAG_05_Derived , DIAG_04_Derived  From dbo.GIRFT_NCIP_RnD_BaseComponent Where  (   Left(DIAG_02_Derived,4)  in (Select Value from [dbo].[Lookup_Codes_Mohanish] where Attribute_Alias = 'diag_1_8' ) OR  Left(DIAG_02_Derived,4)  in (Select Value from [dbo].[Lookup_Codes_Mohanish] where Attribute_Alias = 'diag_1_9' )  )
+
+Select Epikey, DIAG_01_Derived  From dbo.GIRFT_NCIP_RnD_BaseComponent 
+Where  
+(   
+Left(DIAG_01_Derived,4)  in (Select Value from [dbo].[Lookup_Codes_Mohanish] where Attribute_Alias = 'Piyush' ) 
+OR  
+Left(DIAG_01_Derived,4)  in (Select Value from [dbo].[Lookup_Codes_Mohanish] where Attribute_Alias = 'Piyush1' )  
+) 
+AND 
+(   Left(DIAG_02_Derived,4)  in (Select Value from [dbo].[Lookup_Codes_Mohanish] where Attribute_Alias = 'Diag2Val' )  )
